@@ -320,7 +320,7 @@ var AudioHandler = function() {
     if (camera.position.z==850) {
       beatBack();
     }
-    if (beatTime < 8){
+    if (beatTime < 6){
       if (camera.position.z==1000) {
         beat();
       }
