@@ -8,10 +8,15 @@
 			canvas { width: 100%; height: 100% }
 		</style>
 	</head>
-	<body onload="loadSound();">
+	<body>
+    
+	<canvas id="audioDebug" width=0 height=0></canvas>
 		<script src="js/three.min.js"></script>
     <script src="js/tween.js"></script>
-    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="js/AudioHandler.js"></script>
+    <script src="js/minivents.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<script>
       var SCREEN_WIDTH = window.innerWidth,
 			SCREEN_HEIGHT = window.innerHeight,
@@ -22,16 +27,10 @@
 			windowHalfY = window.innerHeight / 2,
 
 			camera, scene, renderer;
-      
-      var soundID = "music";
-      
-      $( document ).ready(function() {
-        playSound( soundID );
-      });
 
-      
-			init();
-			requestAnimationFrame(animate);
+      var events = new Events();
+      init();
+//			requestAnimationFrame(animate);
       
 			function init() {
 
@@ -84,8 +83,18 @@
 				document.addEventListener( 'touchmove', onDocumentTouchMove, false );
         document.addEventListener( 'mousedown', onDocumentMouseDown, false);
         document.addEventListener( 'mouseup', onDocumentMouseUp, false);
+        
+        
+        document.addEventListener('drop', onDocumentDrop, false);
+        document.addEventListener('dragover', onDocumentDragOver, false);
 
 				window.addEventListener( 'resize', onWindowResize, false );
+        
+        
+      AudioHandler.init();
+			
+		update();
+
 
 			}
       
@@ -150,12 +159,12 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 			}
-
-      function animate(time) {
-        requestAnimationFrame(animate);
-        TWEEN.update(time);
+      
+      function update() {
+		    requestAnimationFrame(update);
+		    events.emit("update");  
         render();
-      }
+	}
 
 			function render() {
 
@@ -163,17 +172,23 @@
 				camera.position.y += ( - mouseY + 200 - camera.position.y ) * .05;
 				camera.lookAt( scene.position );
 
+        TWEEN.update();
 				renderer.render( scene, camera );
 
 			}
       
-      function loadSound () {
-        createjs.Sound.registerSound("assets/thunder.mp3", soundID);
-      }
-      
-      function playSound () {
-        createjs.Sound.play(soundID);
-      }
+      function onDocumentDragOver(evt) {
+		    evt.stopPropagation();
+		    evt.preventDefault();
+        return false;
+	   }
+
+      //load dropped MP3
+	   function onDocumentDrop(evt) {
+		    evt.stopPropagation();
+		    evt.preventDefault();
+		    AudioHandler.onMP3Drop(evt);
+	   }
 
 		</script>
 	</body>
