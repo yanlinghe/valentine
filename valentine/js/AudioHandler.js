@@ -73,20 +73,20 @@ var AudioHandler = function() {
 		}
 
 		//INIT DEBUG DRAW
-		var canvas = document.getElementById("audioDebug");
-		debugCtx = canvas.getContext('2d');
-		debugCtx.width = debugW;
-		debugCtx.height = debugH;
-		debugCtx.fillStyle = "rgb(40, 40, 40)";
-		debugCtx.lineWidth=2;
-		debugCtx.strokeStyle = "rgb(255, 255, 255)";
-		$('#audioDebugCtx').hide();
-
-		gradient = debugCtx.createLinearGradient(0,0,0,256);
-		gradient.addColorStop(1,'#330000');
-		gradient.addColorStop(0.75,'#aa0000');
-		gradient.addColorStop(0.5,'#aaaa00');
-		gradient.addColorStop(0,'#aaaaaa');
+//		var canvas = document.getElementById("audioDebug");
+//		debugCtx = canvas.getContext('2d');
+//		debugCtx.width = debugW;
+//		debugCtx.height = debugH;
+//		debugCtx.fillStyle = "rgb(40, 40, 40)";
+//		debugCtx.lineWidth=2;
+//		debugCtx.strokeStyle = "rgb(255, 255, 255)";
+//		$('#audioDebugCtx').hide();
+//
+//		gradient = debugCtx.createLinearGradient(0,0,0,256);
+//		gradient.addColorStop(1,'#330000');
+//		gradient.addColorStop(0.75,'#aa0000');
+//		gradient.addColorStop(0.5,'#aaaa00');
+//		gradient.addColorStop(0,'#aaaaaa');
 
 	}
 
@@ -101,7 +101,6 @@ var AudioHandler = function() {
 		stopSound();
 
 		initSound();
-
 		
 		// Load asynchronously
 		var request = new XMLHttpRequest();
@@ -148,7 +147,7 @@ var AudioHandler = function() {
 			source.stop(0);
 			source.disconnect();
 		}
-		debugCtx.clearRect(0, 0, debugW, debugH);
+//		debugCtx.clearRect(0, 0, debugW, debugH);
 	}
 
 	function onUseMic(){
@@ -314,10 +313,21 @@ var AudioHandler = function() {
 		bpmTime = (new Date().getTime() - bpmStart)/msecsAvg;
 		//trace(bpmStart);
 
-		debugDraw();
+		beatDraw();
 	}
 
-	
+	function beatDraw() {
+    if (camera.position.z==850) {
+      beatBack();
+    }
+    if (beatTime < 6){
+      if (camera.position.z==1000) {
+        beat();
+      }
+		}
+		
+
+  }
 
 	function debugDraw(){
 
