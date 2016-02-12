@@ -12,8 +12,8 @@
 	<body>
     <div id="info">
 		<h2>Happy Valentine's Day</h2>
-		<p>Drop an MP3 file to play.</p>
-		<p>Visual: <a href="http://yanlinghe.com/">Yanling He</a>
+		<p>Drop a .mp3 to change music.</p>
+		<p><a href="http://yanlinghe.com/">Yanling He</a>
 		</p>
 	</div>
     
@@ -61,9 +61,9 @@
                 
                 var geometry = new THREE.Geometry();
                 if (b<=0) {
-                    var vertex = new THREE.Vector3( (0.3*Math.random() + 1)*x, 
-                                                   (0.3*Math.random() + 1)*y, 
-                                                   (0.3*Math.random() + 1)*z );
+                    var vertex = new THREE.Vector3( (0.05-Math.random()*0.1)+x, 
+                                                   (0.05-Math.random()*0.1)+y, 
+                                                   (0.05-Math.random()*0.1)+z );
                     vertex.multiplyScalar( 300 );
                     
                     geometry.vertices.push( vertex );
@@ -125,7 +125,7 @@
       function beat() {
 			     var tween = new TWEEN.Tween(camera.position).to({
                 z: 850
-            }, 100).easing(TWEEN.Easing.Cubic.Out).onUpdate(function () {
+            }, 300).easing(TWEEN.Easing.Cubic.InOut).onUpdate(function () {
             }).onComplete(function () {
             }).start();
       }
@@ -134,7 +134,7 @@
         
            var tween = new TWEEN.Tween(camera.position).to({
                 z: 1000
-            }, 100).easing(TWEEN.Easing.Cubic.In).onUpdate(function () {
+            }, 200).easing(TWEEN.Easing.Cubic.InOut).onUpdate(function () {
             }).onComplete(function () {
             }).start();
       }
