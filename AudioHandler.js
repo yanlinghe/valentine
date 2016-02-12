@@ -317,11 +317,11 @@ var AudioHandler = function() {
 	}
 
 	function beatDraw() {
-    if (camera.position.z<1000) {
+    if (camera.position.z==850) {
       beatBack();
     }
     if (beatTime < 8){
-      if (camera.position.z>950) {
+      if (camera.position.z==1000) {
         beat();
       }
 		}
