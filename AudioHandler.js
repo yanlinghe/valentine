@@ -317,7 +317,7 @@ var AudioHandler = function() {
 	}
 
 	function beatDraw() {
-    if (camera.position.z<900) {
+    if (camera.position.z<1000) {
       beatBack();
     }
     if (beatTime < 8){
